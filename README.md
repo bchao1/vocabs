@@ -1,7 +1,8 @@
 # Vocab
 ![hello](./asset/dict.jpg)
-
-A lightweight online dictionary integration to the command line. No browsers. No paperbooks.
+***
+> A lightweight online dictionary integration to the command line. No browsers. No paperbooks.
+***
 
 ![hello](./asset/demo.gif)
 ## Features
