@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from termcolor import cprint
 from pyfiglet import Figlet
-import cli
+from . import cli
 
 def parseQuery(r):
     soup = BeautifulSoup(r, "html.parser")

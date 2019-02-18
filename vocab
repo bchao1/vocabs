@@ -3,8 +3,8 @@
 import os
 import pickle
 import requests
-import utils
-import cli
+import lib.utils as utils
+import lib.cli as cli
 import time
 import random
 from argparse import ArgumentParser
