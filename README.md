@@ -1,5 +1,5 @@
 # Vocab
-<img src="./asset/dict.jpg" style="display: block;margin:0 auto" alt="drawing" width="300"/>
+<p align=center><img src="./asset/dict.jpg" width="400"/></p>
 
 ***
 > A lightweight online dictionary integration to the command line. No browsers. No paperbooks.
