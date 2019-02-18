@@ -25,14 +25,20 @@ requests
 - Enjoy!
 
 ## Usage
-```bash
-# Query mode
+### Query mode
+```
 $ ./vocab
 $ ./vocab -m query
-# Edit mode
+```
+### Edit mode
+```
 $ ./vocab -m edit
-# Interactive mode
+```
+### Interactive mode
+```
 $ ./vocab -m interactive
-# Reset local dictionary
+```
+### Reset local dictionary
+```
 $ ./vocab -r
 ```
