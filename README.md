@@ -1,5 +1,6 @@
 # Vocab
-![hello](./asset/dict.jpg)
+<img src="./asset/dict.jpg" style="display: block;margin:0 auto" alt="drawing" width="300"/>
+
 ***
 > A lightweight online dictionary integration to the command line. No browsers. No paperbooks.
 ***
