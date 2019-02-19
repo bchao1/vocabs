@@ -1,4 +1,4 @@
-# Vocab
+# 📚 Vocab
 <p align=center>
 <img src="./asset/dict.jpg" width="400"/>
 <br>
