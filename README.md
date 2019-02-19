@@ -60,6 +60,15 @@ All in all, `Vocab` is a great tool for fast word queries with easy-to-read defi
 
 
 ## Usage
+```
+$ vocab
+
+Options:
+    --mode, -m ['query', 'edit', 'dict', 'interactive']
+    --file, -f <path to word list>
+    --reset, -r
+    --count, -c
+```
 ### Query Mode
 > ❓ Directly search and save unknown words **from the command line**.
 ```
