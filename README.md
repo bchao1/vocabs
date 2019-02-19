@@ -39,52 +39,52 @@ Fire `vocab` anywhere on your terminal.
 ### Query Mode
 > Directly search and save unknown words **from the command line**.
 ```
-$ ./vocab -m query
+$ vocab -m query
 ```
 <img src="./asset/query-cropped.gif" width="600"/>
 
 ### Dictionary Mode
 > Scroll though pages to search for saved words.
 ```
-$ ./vocab -m dict
+$ vocab -m dict
 ```
 <img src="./asset/dict-cropped.gif" width="600"/>
 
 ### Edit mode
 > Edit your save words and add notes.
 ```
-$ ./vocab -m edit
+$ vocab -m edit
 ```
 <img src="./asset/edit-cropped.gif" width="600"/>
 
 ### Interactive Mode
 > Test your vocabulary skills with the interactive mode.
 ```
-$ ./vocab -m interactive
+$ vocab -m interactive
 ```
 <img src="./asset/interactive-cropped.gif" width="600"/>
 
 ### Load Word List
 > Load a list of words from to your local dictionary.
 ```
-$ ./vocab -f <ABSOLUTE path to file>
+$ vocab -f <ABSOLUTE path to file>
 ```
 <img src="./asset/file-cropped.gif" width="600"/>
 
 ### Count Total Words
 > Count number of words saved in your local dictionary.
 ```
-$ ./vocab -c
+$ vocab -c
 ```
 <img src="./asset/count-cropped.gif" width="600"/>
 
 ### Reset Local Dictionary
 ```
-$ ./vocab -r
+$ vocab -r
 ```
 ### Help
 ```
-$ ./vocab -h
+$ vocab -h
 ```
 
 ## Todo
