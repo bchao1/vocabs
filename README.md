@@ -83,7 +83,7 @@ $ vocab -m interactive
 ### Load Word List
 > 📜 Load a list of words from to your local dictionary.
 ```
-$ vocab -f <ABSOLUTE path to file>
+$ vocab -f <path to file>
 ```
 <img src="./asset/file-cropped.gif" width="600"/>
 
