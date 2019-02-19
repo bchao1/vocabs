@@ -23,6 +23,18 @@
 
 > 🎮 Interactive word game to hone your vocabulary skills.
 
+## So how is this different from `dict` ?
+`dict` is the client for DICT, or the Dictionary Server Protocol on Unix-like platforms. It is used to query natural language dictionaries without firing up a bloaty brower, which tremendously slows down your workflow.
+
+`Vocab` aims to do the same as `dict`, only with some differneces:
+
+- Less verbose result (since `Vocab` only uses one source).
+- Can save words to local client dictionary pickle file.
+- Can add notes to a saved word.
+- Includes a interactive word-quiz feature.
+
+All in all, `Vocab` is a great tool for fast word queries with easy-to-read definitions, and a good support for ESL users.
+
 ## Requirements
 <a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img src="https://img.shields.io/badge/python-%3E=_3.6-green.svg"></a> and the following libraries are required.
 
