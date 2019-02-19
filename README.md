@@ -12,7 +12,7 @@
 > 📚 A lightweight online dictionary integration to the command line. No browsers. No paperbacks.
 ***
 
-<p align=center><img src="./asset/demo.gif" width="800"/></p>
+<p align=center><img src="./asset/gifs/demo.gif" width="800"/></p>
 
 ## Features
 > ❓ Directly query words from the command line.
