@@ -256,5 +256,5 @@ class App:
     def reset(self):
         ''' Reset cache dictionary. '''
         self.myDict = {}
-        with open(DICT_PATH, "wb") as file:
+        with open(config.DICT_PATH, "wb") as file:
             pickle.dump(self.myDict, file)
