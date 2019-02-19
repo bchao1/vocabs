@@ -49,6 +49,7 @@ All in all, `Vocab` is a great tool for fast word queries with easy-to-read defi
 
 ## Running
 🔥 Launch `vocab` anywhere on your terminal.
+> After launching `Vocab` for the first time, a directory `./local` will be created inside the git repo, and an empty pickle file `dict` will be stored in `./local`. This path can be modified in `./lib/config.py`.
 
 
 ## Usage

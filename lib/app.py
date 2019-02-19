@@ -16,6 +16,8 @@ class App:
 
         self.query_url = "https://en.oxforddictionaries.com/definition/{}"
         self.myDict = {}
+        if not os.path.exists(config.DICT_DIR):
+            os.mkdir(config.DICT_DIR)
         if not os.path.exists(config.DICT_PATH):
             self.saveDict()
         self.loadDict()
