@@ -37,42 +37,42 @@
 ```
 $ ./vocab -m query
 ```
-<img src="./asset/query.gif" width="500"/>
+<img src="./asset/query-cropped.gif" width="600"/>
 
 ### Dictionary Mode
 > Scroll though pages to search for saved words.
 ```
 $ ./vocab -m dict
 ```
-<img src="./asset/dict.gif" width="500"/>
+<img src="./asset/dict-cropped.gif" width="600"/>
 
 ### Edit mode
 > Edit your save words and add notes.
 ```
 $ ./vocab -m edit
 ```
-<img src="./asset/edit.gif" width="500"/>
+<img src="./asset/edit-cropped.gif" width="600"/>
 
 ### Interactive Mode
 > Test your vocabulary skills with the interactive mode.
 ```
 $ ./vocab -m interactive
 ```
-<img src="./asset/interactive.gif" width="500"/>
+<img src="./asset/interactive-cropped.gif" width="600"/>
 
 ### Load Word List
 > Load a list of words from to your local dictionary.
 ```
 $ ./vocab -f <path to file>
 ```
-<img src="./asset/file.gif" width="500"/>
+<img src="./asset/file-cropped.gif" width="600"/>
 
 ### Count Total Words
 > Count number of words saved in your local dictionary.
 ```
 $ ./vocab -c
 ```
-<img src="./asset/count.gif" width="500"/>
+<img src="./asset/count-cropped.gif" width="600"/>
 
 ### Reset Local Dictionary
 ```
