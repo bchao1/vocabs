@@ -69,6 +69,7 @@ Options:
     --reset, -r
     --count, -c
 ```
+
 ### Query Mode
 > ❓ Directly search and save unknown words **from the command line**.
 ```
