@@ -5,7 +5,7 @@
 > A lightweight online dictionary integration to the command line. No browsers. No paperbooks.
 ***
 
-<p align=center><img src="./asset/demo.gif" width="500"/></p>
+<p align=center><img src="./asset/demo.gif" width="800"/></p>
 
 ## Features
 - Directly query words from the command line.
