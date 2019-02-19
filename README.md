@@ -26,10 +26,14 @@
 - requests
 - (Linux compatible) tty, termios
 
-## Run
-- Clone the git repository `./Vocab`.
-- In `./Vocab` directory, type `./vocab`.
-- Enjoy the experience!
+## Setting up
+- Clone the git repository `Vocab`.
+- In `/Vocab/lib/config.py`, modify `DICT_PATH` to the ABSOULTE PATH of the local dictionary file on your computer.
+- In root, type `vi ~/.bashrc`. Append the following at the end of the bashrc file : `export PATH=$PATH/<ABSOLUTE PATH to git repo>`
+
+## Running
+Fire `vocab` anywhere on your terminal.
+
 
 ## Usage
 ### Query Mode
@@ -63,7 +67,7 @@ $ ./vocab -m interactive
 ### Load Word List
 > Load a list of words from to your local dictionary.
 ```
-$ ./vocab -f <path to file>
+$ ./vocab -f <ABSOLUTE path to file>
 ```
 <img src="./asset/file-cropped.gif" width="600"/>
 
