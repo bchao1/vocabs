@@ -24,6 +24,7 @@
 - pyfiglet
 - termcolor
 - requests
+- (Linux compatible) tty, termios
 
 ## Run
 - Clone the git repository `./Vocab`.

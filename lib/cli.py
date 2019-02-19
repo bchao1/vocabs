@@ -2,6 +2,8 @@
 
 import os
 import sys
+import tty, termios
+
 from termcolor import cprint
 rows, columns = os.popen('stty size', 'r').read().split()
 
@@ -45,18 +47,14 @@ def clearConsole(n):
         clearLine()
         moveCursorUp(1)
 
-def useBulletCli(l):
-    ''' Render a list as bullet points. Scroll up and down. '''
-    currIdx = 0
-    # Render initial bullet list.
-    for i in range(len(l)):
-        if i == 0:
-            cprint("●", "cyan", end = '')
-            puts(l[i], 1)
-        else:
-            puts(l[i], 2)
-if __name__ == "__main__":
-    l = ["apple", "banana", "orange", "strawberry", "kiwi"]
-    useBulletCli(l)
+def getch():
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
 
 

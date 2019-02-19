@@ -124,7 +124,10 @@ class App:
             if know == 'q':
                 break
             self.myDict[wordList[idx]]["know"] = True if know == 'y' else False
-            cli.clearConsole(5)
+            _, lineCt = self.query(wordList[idx])
+            print("Enter anything to continue...")
+            c = cli.getch()
+            cli.clearConsole(6 + lineCt)
             self.printCount()
 
     def runEditMode(self):
