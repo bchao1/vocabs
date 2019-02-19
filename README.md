@@ -24,6 +24,12 @@
 > 🎮 Interactive word game to hone your vocabulary skills.
 
 ## So how is this different from `dict` ?
+
+<p align=center>
+<img src="./asset/gifs/dicthello.gif" width="400">
+<img src="./asset/gifs/vocabhello.gif" width="400">
+</p>
+
 `dict` is the client for DICT, or the Dictionary Server Protocol on Unix-like platforms. It is used to query natural language dictionaries without firing up a bloaty browser, which tremendously slows down your workflow.
 
 `Vocab` aims to do the same as `dict`, only with some differences:
@@ -32,6 +38,7 @@
 - Can save words to local client dictionary pickle file.
 - Can add notes to a saved word.
 - Includes a interactive word-quiz feature.
+- With colors 🎨!
 
 All in all, `Vocab` is a great tool for fast word queries with easy-to-read definitions, and a good support for ESL users.
 
@@ -44,7 +51,7 @@ All in all, `Vocab` is a great tool for fast word queries with easy-to-read defi
 
 ## Setting up
 - Clone the git repository `Vocab`.
-- In `/Vocab/lib/config.py`, modify `DICT_PATH` to the ABSOLUTE PATH of the local dictionary file on your computer.
+- In `/Vocab/lib/config.py`, modify `DICT_PATH`, `DICT_DIR` to the ABSOLUTE PATH of the local dictionary file on your computer.
 - In root, type `vi ~/.bashrc`. Append the following at the end of the bashrc file : `export PATH=$PATH/<ABSOLUTE PATH to git repo>`
 
 ## Running
