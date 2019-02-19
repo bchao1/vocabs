@@ -28,7 +28,7 @@ class App:
         except requests.exceptions.RequestException as e: 
             print("Internet is not connected. Please check your internet connection.")
             return False
-
+    
     def printIntro(self):
         utils.renderText(" Vocab ")
         cprint("A lightweight dictionary and vocabulary cli.", 'grey', 'on_white', end = '\n')
