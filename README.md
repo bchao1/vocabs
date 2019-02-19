@@ -19,17 +19,16 @@
 - Add notes to saved words.
 - Interactive word game to hone your vocabulary skills.
 ## Requirements
-`python` >= 3.6 and the following libraries are required.
-```python
-BeautifulSoup
-pyfiglet
-termcolor
-requests
-```
+<a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img src="https://img.shields.io/badge/python-%3E=_3.6-green.svg"></a> and the following libraries are required.
+- beautifulsoup4
+- pyfiglet
+- termcolor
+- requests
+
 ## Run
 - Clone the git repository `./Vocab`.
 - In `./Vocab` directory, type `./vocab`.
-- Enjoy!
+- Enjoy the experience!
 
 ## Usage
 ### Query Mode
@@ -63,7 +62,7 @@ $ ./vocab -m interactive
 ### Load Word List
 > Load a list of words from to your local dictionary.
 ```
-$ ./vocab -f ./asset/gre.txt
+$ ./vocab -f <path to file>
 ```
 <img src="./asset/file.gif" width="500"/>
 
