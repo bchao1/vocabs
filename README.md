@@ -24,9 +24,9 @@
 > 🎮 Interactive word game to hone your vocabulary skills.
 
 ## So how is this different from `dict` ?
-`dict` is the client for DICT, or the Dictionary Server Protocol on Unix-like platforms. It is used to query natural language dictionaries without firing up a bloaty brower, which tremendously slows down your workflow.
+`dict` is the client for DICT, or the Dictionary Server Protocol on Unix-like platforms. It is used to query natural language dictionaries without firing up a bloaty browser, which tremendously slows down your workflow.
 
-`Vocab` aims to do the same as `dict`, only with some differneces:
+`Vocab` aims to do the same as `dict`, only with some differences:
 
 - Less verbose result (since `Vocab` only uses one source).
 - Can save words to local client dictionary pickle file.
