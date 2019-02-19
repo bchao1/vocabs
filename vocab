@@ -7,6 +7,7 @@ import lib.utils as utils
 import lib.cli as cli
 import time
 import random
+import math
 from argparse import ArgumentParser
 from termcolor import cprint
 
@@ -64,9 +65,50 @@ class App:
             self.runEditMode()
         elif mode == 'interactive':
             self.runInteractiveMode()
+        elif mode == 'dict':
+            self.runDictionaryMode()
         self.saveDict()
         self.end()
     
+    def runDictionaryMode(self):
+        print('\n', end = '')
+        words = sorted(list(self.myDict.keys()))
+        page, maxPage = 1, int(math.ceil(len(words) / 20))
+        while True:
+            idx = 20 * (page - 1)
+            maxIdx = min(len(words) - 1, 20 * page - 1)
+            lineCt = 0
+            print("Page ", end = '')
+            cprint("{}".format(page), "cyan")
+
+            while idx <= maxIdx:
+                print("{0: >20}".format(words[idx]), end = '')
+                idx += 1
+                if idx % 5 == 0 or idx == len(words):
+                    print('\n', end = '')
+                    lineCt += 1 
+            
+            s = input("Previous / Next / Quit / Word ['p'/'n'/'q'/<word>]: ")
+            s = s.lower()
+            if s == 'p' and page - 1 > 0:
+                page -= 1
+            elif s == 'n' and page + 1 <= maxPage:
+                page += 1
+            elif s in words[20 * (page - 1) : 20 * page]:
+                cli.clearConsole(lineCt + 2)
+                if not self.myDict[s]["def"]:
+                    query = self.query_url.format(s)
+                    r =  utils.parseQuery(self.sess.get(query).text)
+                    self.myDict[s]["def"] = r
+                    self.saveDict()
+                utils.showQuery(self.myDict[s]["def"])
+                print('\n', end = '')
+                break
+            elif s == 'q':
+                break
+            cli.clearConsole(lineCt + 2)
+            cli.clearLine()
+
     def runInteractiveMode(self):
         self.printSummary()
         wordList = list(self.myDict.keys())
@@ -77,7 +119,7 @@ class App:
             idx = random.randint(0, len(wordList) - 1)
             cprint(" >> ", "cyan", end = '')
             print(wordList[idx])
-            know = input("Know this word? [y]['q' to quit]: ")
+            know = input("Know this word? ['y']['q' to quit]: ")
             know = know.lower()
             if know == 'q':
                 break
@@ -93,7 +135,7 @@ class App:
         if word == 'q':
             return
         if word not in self.myDict:
-            save = input("Add word to dictionary? [y]: ")
+            save = input("Add word to dictionary? ['y']: ")
             if save.lower() == 'y':
                 query = self.query_url.format(word)
                 r =  utils.parseQuery(self.sess.get(query).text)
@@ -101,6 +143,13 @@ class App:
                 self.saveDict()
             else:
                 return
+        else:
+            if not self.myDict[word]["def"]:
+                query = self.query_url.format(word)
+                r =  utils.parseQuery(self.sess.get(query).text)
+                self.myDict[word]["def"] = r
+                self.saveDict()
+        
         print("\n", end = '')
         utils.showQuery(self.myDict[word]["def"])
         print("\n", end = '')
@@ -126,7 +175,7 @@ class App:
 
     def query(self, word):
         ''' Query word from online dictionary or cached. '''
-        if word in self.myDict:
+        if word in self.myDict and self.myDict[word]:
             # Retrieve from own dictionary
             r = self.myDict[word]["def"]
         else:
@@ -168,7 +217,7 @@ class App:
         if not result:
             time.sleep(1)
         else:
-            save = input("Save word? [y] : ")
+            save = input("Save word? ['y'] : ")
             if save.lower() == 'y':
                 self.myDict[word] = {"def" : result, "notes" : [], "know" : False}
             self.saveDict()
@@ -177,10 +226,27 @@ class App:
         self.sess.close()
     
     def guard(self):
-        r = input("Are you sure you want to reset the dictionary? (All saved words will be lost) [y]: ")
+        r = input("Are you sure you want to reset the dictionary? (All saved words will be lost) ['y']: ")
         if r.lower() == 'y':
             self.reset()
-    
+
+    def loadWordList(self, wordlist):
+        wordCt = 0
+        with open(wordlist, 'r') as file:
+            for line in file:
+                word = line.strip().lower()
+                if word not in self.myDict:
+                    self.myDict[word] = {"def" : None, "notes" : [], "know" : False}
+                    wordCt += 1
+        self.saveDict()
+        self.printIntro()
+        cprint("{} ".format(wordCt), "yellow", end = '')
+        print("new words added to local dictionary.\n")
+
+    def wordCount(self):
+        self.printIntro()
+        self.printHeader()
+
     def reset(self):
         ''' Reset cache dictionary. '''
         self.myDict = {}
@@ -190,12 +256,20 @@ class App:
 if __name__ == "__main__":
 
     parser = ArgumentParser()
-    parser.add_argument("-m", "--mode", default = "query", choices = ["edit", "query", "interactive"], help = "Select app mode.")
-    parser.add_argument("-r", "--reset", action = "store_true", help = "Reset dictionary.")
+    exclusive_args = parser.add_mutually_exclusive_group(required = True)
+    exclusive_args.add_argument("-m", "--mode", choices = ["edit", "query", "interactive", "dict"], help = "Select app mode.")
+    exclusive_args.add_argument("-r", "--reset", action = "store_true", help = "Reset dictionary.")
+    exclusive_args.add_argument("-f", "--file", help = "Load words from word list.")
+    exclusive_args.add_argument("-c", "--count", action = "store_true", help = "Count total words in local dictionary.")
     args = parser.parse_args()
 
     app = App()
+
     if args.reset:
         app.guard()
+    elif args.count:
+        app.wordCount()
+    elif args.file:
+        app.loadWordList(wordlist = args.file)
     else:
         app.launch(mode = args.mode)

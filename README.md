@@ -25,20 +25,40 @@ requests
 - Enjoy!
 
 ## Usage
-### Query mode
+### Query Mode
 ```
-$ ./vocab
 $ ./vocab -m query
+```
+### Dictionary Mode
+```
+$ ./vocab -m dict
 ```
 ### Edit mode
 ```
 $ ./vocab -m edit
 ```
-### Interactive mode
+### Interactive Mode
 ```
 $ ./vocab -m interactive
 ```
-### Reset local dictionary
+### Load Word List
+```
+$ ./vocab -f ./asset/gre.txt
+```
+### Count Total Words
+```
+$ ./vocab -c
+```
+### Reset Local Dictionary
 ```
 $ ./vocab -r
 ```
+### Help
+```
+$ ./vocab -h
+```
+
+## Todo
+- Synonyms / Antonyms.
+- Full command line support (left, right keys, autofill).
+- Search history (up, down keys).
