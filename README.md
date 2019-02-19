@@ -44,7 +44,7 @@ All in all, `Vocab` is a great tool for fast word queries with easy-to-read defi
 
 ## Setting up
 - Clone the git repository `Vocab`.
-- In `/Vocab/lib/config.py`, modify `DICT_PATH` to the ABSOULTE PATH of the local dictionary file on your computer.
+- In `/Vocab/lib/config.py`, modify `DICT_PATH` to the ABSOLUTE PATH of the local dictionary file on your computer.
 - In root, type `vi ~/.bashrc`. Append the following at the end of the bashrc file : `export PATH=$PATH/<ABSOLUTE PATH to git repo>`
 
 ## Running
