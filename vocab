@@ -178,7 +178,7 @@ class App:
 
     def query(self, word):
         ''' Query word from online dictionary or cached. '''
-        if word in self.myDict and self.myDict[word]:
+        if word in self.myDict and self.myDict[word]["def"]:
             # Retrieve from own dictionary
             r = self.myDict[word]["def"]
         else:
@@ -235,16 +235,19 @@ class App:
 
     def loadWordList(self, wordlist):
         wordCt = 0
-        with open(wordlist, 'r') as file:
-            for line in file:
-                word = line.strip().lower()
-                if word not in self.myDict:
-                    self.myDict[word] = {"def" : None, "notes" : [], "know" : False}
-                    wordCt += 1
-        self.saveDict()
-        self.printIntro()
-        cprint("{} ".format(wordCt), "yellow", end = '')
-        print("new words added to local dictionary.\n")
+        try:
+            with open(wordlist, 'r') as file:
+                for line in file:
+                    word = line.strip().lower()
+                    if word not in self.myDict:
+                        self.myDict[word] = {"def" : None, "notes" : [], "know" : False}
+                        wordCt += 1
+            self.saveDict()
+            self.printIntro()
+            cprint("{} ".format(wordCt), "yellow", end = '')
+            print("new words added to local dictionary.\n")
+        except:
+            print("Path \"{}\" doesn't exist!".format(wordlist))
 
     def wordCount(self):
         self.printIntro()
