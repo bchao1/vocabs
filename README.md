@@ -16,7 +16,9 @@
 <p align=center><img src="./asset/gifs/demo.gif" width="800"/></p>
 
 ## Features
-> 📈 Word of the Day!
+> 📆 Word of the Day!
+
+> 📈 Trending words! 
 
 > ❓ Directly query words from the command line.
 
@@ -74,11 +76,18 @@ Options:
     --lucky, -l
 ```
 ### Feeling Lucky
-> 📈 Word of the Day.
+> 📆 Word of the Day.
 ```
 $ vocab -l
 ```
 <img src="./asset/gifs/lucky.gif" width="600"/>
+
+### Trending Words
+> Shows a list of frequently searched words.
+```
+$ vocab -t
+```
+
 ### Query Mode
 > ❓ Directly search and save unknown words **from the command line**.
 ```
