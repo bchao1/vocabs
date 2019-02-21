@@ -11,6 +11,7 @@ import random
 import math
 from termcolor import cprint
 from bs4 import BeautifulSoup
+import readline
 
 class App:
     def __init__(self):
