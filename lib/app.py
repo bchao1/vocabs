@@ -12,6 +12,7 @@ import math
 from termcolor import cprint
 from bs4 import BeautifulSoup
 import readline
+from .clilib import client
 
 class App:
     def __init__(self):
@@ -261,8 +262,14 @@ class App:
         self.getWordOfTheDay()
 
     def trendingWords(self):
+        self.printIntro()
+        print('')
+        cprint("Now trending ...", "magenta", "on_white")
         l = self.getTrendingWords()
-        print(l)
+        bullets = client.BulletCli(l, indent = 2)
+        word = bullets.launch()
+        result, _ = self.query(word)
+        self.saveWord(word, result)
         return
     
     def loadWordList(self, wordlist):

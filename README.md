@@ -83,7 +83,7 @@ $ vocab -l
 <img src="./asset/gifs/lucky.gif" width="600"/>
 
 ### Trending Words
-> Shows a list of frequently searched words.
+> 📈 Shows a list of frequently searched words.
 ```
 $ vocab -t
 ```

@@ -1,82 +1,67 @@
 import sys
 from .charDef import *
-from .utils import getchar, mybeep
+from . import utils
+from termcolor import cprint
 
-class BetterInput:
-    def __init__(self):
-        self.buffer = []
+class BulletCli:
+    def __init__(self, bullets = [], indent = 0, color = "cyan"):
+        self.bullets = bullets
         self.pos = 0
-        
-    def put(self, c):
-        sys.stdout.write(c)
-        sys.stdout.flush()
-
-    def moveCursor(self, pos):
-        if pos < 0 or pos > len(self.buffer):
-            mybeep()
-            return False
-        if self.pos <= pos:
-            while self.pos != pos:
-                self.put(self.buffer[self.pos])
-                self.pos += 1
+        self.indent = indent
+        self.color = color
+    
+    def renderBullets(self):
+        for i in range(len(self.bullets)):
+            self.printBullet(i)
+            utils.forceWrite('\n')
+            
+    def printBullet(self, idx):
+        utils.forceWrite(' ' * self.indent)
+        if idx == self.pos:
+            cprint("● ", self.color, end = '')
         else:
-            while self.pos != pos:
-                self.put("\b")
-                self.pos -= 1
-        return True
+            utils.forceWrite("  ")
+        utils.forceWrite(self.bullets[idx])
+        utils.moveCursorHead()
 
-    def insertChar(self, c):
-        self.buffer.insert(self.pos, c)
-        self.put(''.join(self.buffer[self.pos:]))
-        self.put("\b" * (len(self.buffer) - self.pos - 1))
-        self.pos += 1
-
-    def getInput(self):
-        ret = ''.join(self.buffer).strip()
-        self.buffer = []
-        return ret
-
-    def deleteChar(self):
-        if self.pos == len(self.buffer):
-            mybeep()
-            return
-        self.buffer.pop(self.pos)
-        self.put(''.join(self.buffer[self.pos:]) + ' ')
-        self.put("\b" * (len(self.buffer) - self.pos + 1))
-
-    def input(self, q):
-        self.put(q)
-        while True:
-            c = getchar()
-            i = c if c == UNDEFINED_KEY else ord(c)
-
-            if i == NEWLINE_KEY:
-                self.put('\n')
-                return self.getInput()
-            elif i == LINE_BEGIN_KEY or i == HOME_KEY:
-                return
-            elif i == LINE_END_KEY or i == END_KEY:
-                return
-            elif i == BACK_SPACE_KEY:
-                if self.moveCursor(self.pos - 1):
-                    self.deleteChar()
-            elif i == DELETE_KEY:
-                self.deleteChar()
-            elif i == ARROW_UP_KEY:
-                return
-            elif i == ARROW_DOWN_KEY:
-                return
-            elif i == ARROW_RIGHT_KEY:
-                self.moveCursor(self.pos + 1)
-            elif i == ARROW_LEFT_KEY:
-                self.moveCursor(self.pos - 1)
-            elif i == PG_UP_KEY:
-                return
-            elif i == PG_DOWN_KEY:
-                return
-            elif i == TAB_KEY:
-                return
-            elif i == UNDEFINED_KEY:
+    def moveBullet(self, up = True):
+        if up:
+            if self.pos - 1 < 0:
                 return
             else:
-                self.insertChar(c)
+                utils.clearLine()
+                old_pos = self.pos
+                self.pos -= 1
+                self.printBullet(old_pos)
+                utils.moveCursorUp(1)
+                self.printBullet(self.pos)
+        else:
+            if self.pos + 1 >= len(self.bullets):
+                return
+            else:
+                utils.clearLine()
+                old_pos = self.pos
+                self.pos += 1
+                self.printBullet(old_pos)
+                utils.moveCursorDown(1)
+                self.printBullet(self.pos)
+
+    def launch(self):
+        self.renderBullets()
+        utils.moveCursorUp(len(self.bullets))
+        while True:
+            c = utils.getchar()
+            i = c if c == UNDEFINED_KEY else ord(c)
+            if i == NEWLINE_KEY:
+                utils.moveCursorDown(len(self.bullets) - self.pos)
+                return self.bullets[self.pos]
+            elif i == ARROW_UP_KEY:
+                self.moveBullet()
+            elif i == ARROW_DOWN_KEY:
+                self.moveBullet(up = False)
+                
+
+if __name__ == "__main__":
+    cli = BulletCli(["apple", "banana", "orange", "watermelon", "strawberry"], indent = 4)
+    result = cli.launch()
+    print(result)

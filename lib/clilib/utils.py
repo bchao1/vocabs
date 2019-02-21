@@ -1,7 +1,11 @@
+import os
 import sys
 import tty, termios
 import string
 from .charDef import *
+
+_, n = os.popen('stty size', 'r').read().split()
+COLUMNS = int(n)
 
 def mybeep():
     print(chr(BEEP_CHAR), end = '')
@@ -51,3 +55,50 @@ def getchar():
             return UNDEFINED_KEY
 
     return UNDEFINED_KEY
+
+# Basic command line functions
+
+def puts(s, indent = 4):
+    ''' Print string with indent. '''
+
+    forceWrite(' ' * indent + s + '\n')
+
+def moveCursorLeft(n):
+    ''' Move cursor left n columns. '''
+
+    forceWrite("\033[{}D".format(n))
+
+def moveCursorRight(n):
+    ''' Move cursor right n columns. '''
+    
+    forceWrite("\033[{}C".format(n))
+    
+def moveCursorUp(n):
+    ''' Move cursor up n rows. '''
+
+    forceWrite("\033[{}A".format(n))
+
+def moveCursorDown(n):
+    ''' Move cursor down n rows. '''
+
+    forceWrite("\033[{}B".format(n))
+
+def moveCursorHead():
+    forceWrite("\r")
+
+def clearLine():
+    ''' Clear content of one line on the console. '''
+
+    forceWrite(" " * COLUMNS)
+    moveCursorHead()
+    
+def clearConsole(n):
+    ''' Clear n console rows (bottom up). ''' 
+
+    for _ in range(n):
+        clearLine()
+        moveCursorUp(1)
+
+def forceWrite(s):
+    sys.stdout.write(s)
+    sys.stdout.flush()
