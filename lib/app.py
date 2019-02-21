@@ -195,6 +195,11 @@ class App:
         self.saveWord(daily_word, result)
         return
 
+    def getTrendingWords(self):
+        soup = self.soupify(self.root_url)
+        soup = soup.find("div", {"class":"trend"}).find_all("li")
+        return list(map(lambda tag: tag.find("a").text, soup))
+
     def query(self, word):
         ''' Query word from online dictionary or cached. '''
         if word in self.myDict and self.myDict[word]["def"]:
@@ -255,6 +260,11 @@ class App:
     def feelingLucky(self):
         self.getWordOfTheDay()
 
+    def trendingWords(self):
+        l = self.getTrendingWords()
+        print(l)
+        return
+    
     def loadWordList(self, wordlist):
         wordCt = 0
         try:
