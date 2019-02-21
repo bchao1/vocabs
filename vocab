@@ -10,6 +10,7 @@ def main():
     exclusive_args.add_argument("-r", "--reset", action = "store_true", help = "Reset dictionary.")
     exclusive_args.add_argument("-f", "--file", help = "Load words from word list.")
     exclusive_args.add_argument("-c", "--count", action = "store_true", help = "Count total words in local dictionary.")
+    exclusive_args.add_argument("-l", "--lucky", action = "store_true", help = "Word of the day.")
     args = parser.parse_args()
 
     app = App()
@@ -18,10 +19,14 @@ def main():
         app.guard()
     elif args.count:
         app.wordCount()
+    elif args.lucky:
+        app.feelingLucky()
     elif args.file:
         app.loadWordList(wordlist = args.file)
     else:
         app.launch(mode = args.mode)
+    
+    app.end()
 
 if __name__ == "__main__":
     main()

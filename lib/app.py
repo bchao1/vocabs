@@ -10,11 +10,13 @@ import time
 import random
 import math
 from termcolor import cprint
+from bs4 import BeautifulSoup
 
 class App:
     def __init__(self):
-
+        self.root_url = "https://en.oxforddictionaries.com/"
         self.query_url = "https://en.oxforddictionaries.com/definition/{}"
+        self.sess = requests.Session()
         self.myDict = {}
         if not os.path.exists(config.DICT_DIR):
             os.mkdir(config.DICT_DIR)
@@ -31,6 +33,10 @@ class App:
             print("Internet is not connected. Please check your internet connection.")
             return False
     
+    def soupify(self, url):
+        r = self.sess.get(url)
+        return BeautifulSoup(r.text, 'html.parser')
+
     def printIntro(self):
         utils.renderText(" Vocab ")
         cprint("A lightweight dictionary and vocabulary cli.", 'grey', 'on_white', end = '\n')
@@ -58,7 +64,6 @@ class App:
         if not self.internet_on():
             return
 
-        self.sess = requests.Session()
         self.printIntro()
 
         if mode == 'query':
@@ -178,6 +183,17 @@ class App:
             else:
                 cli.clearConsole(lineCnt + 2)
 
+    def getWordOfTheDay(self):
+        self.printIntro()
+        soup = self.soupify(self.root_url)
+        daily_word = soup.find("a", {"class":"linkword"}).text
+        print('\n', end = '')
+        cprint("Word of the day:", "magenta", "on_white", end = '')
+        cprint(' ' + daily_word)
+        result, _ = self.query(daily_word)
+        self.saveWord(daily_word, result)
+        return
+
     def query(self, word):
         ''' Query word from online dictionary or cached. '''
         if word in self.myDict and self.myDict[word]["def"]:
@@ -234,6 +250,9 @@ class App:
         r = input("Are you sure you want to reset the dictionary? (All saved words will be lost) ['y']: ")
         if r.lower() == 'y':
             self.reset()
+
+    def feelingLucky(self):
+        self.getWordOfTheDay()
 
     def loadWordList(self, wordlist):
         wordCt = 0

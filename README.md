@@ -15,6 +15,8 @@
 <p align=center><img src="./asset/gifs/demo.gif" width="800"/></p>
 
 ## Features
+> 📈 Word of the Day!
+
 > ❓ Directly query words from the command line.
 
 > 📓 Save words to your local dictionary.
@@ -68,8 +70,14 @@ Options:
     --file, -f <path to word list>
     --reset, -r
     --count, -c
+    --lucky, -l
 ```
-
+### Feeling Lucky
+> 📈 Word of the Day.
+```
+$ vocab -l
+```
+<img src="./asset/gifs/lucky.gif" width="600"/>
 ### Query Mode
 > ❓ Directly search and save unknown words **from the command line**.
 ```
