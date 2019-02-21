@@ -56,7 +56,7 @@ class App:
             for pos, meaning, example in r:
                 cprint(pos, 'yellow', end = ' ')
                 cprint(meaning, 'cyan')
-                lineCt += 1
+                lineCt += math.ceil((len(pos) + len(meaning)) / utils.COLUMNS)
                 for i in range(len(example)):
                     utils.puts(str(i + 1) + '. ' + example[i])
                     lineCt += 1
