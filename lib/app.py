@@ -3,16 +3,16 @@
 import os
 import pickle
 import requests
-from . import utils
-from . import cli
-from . import config
 import time
 import random
 import math
+import readline
 from termcolor import cprint
 from bs4 import BeautifulSoup
-import readline
+from . import config
+from .clilib import utils
 from .clilib import client
+
 
 class App:
     def __init__(self):
@@ -34,6 +34,33 @@ class App:
         except requests.exceptions.RequestException as e: 
             print("Internet is not connected. Please check your internet connection.")
             return False
+    
+    def parseQuery(self, r):
+        soup = BeautifulSoup(r, "html.parser")
+        defs = soup.find_all("section", {"class" : "gramb"})
+        result = []
+        for d in defs:
+            pos = d.find("h3", {"class" : "ps pos"}).find("span", {"class" : "pos"}).text
+            meaning = d.find("ul", {"class" : "semb"}).find("p").find("span", {"class" : "ind"}).text
+            example = d.find("ul", {"class" : "semb"}).find("div", {"class" : "trg"}).find_all("div", {"class" : "exg"}, recursive = False)
+            example = list(map(lambda html : html.find("em").text, example))
+            result.append((pos, meaning, example))
+        return result
+    
+    def showQuery(self, r):
+        lineCt = 0
+        if not r:
+            print("Word not found!")
+            lineCt += 1
+        else:
+            for pos, meaning, example in r:
+                cprint(pos, 'yellow', end = ' ')
+                cprint(meaning, 'cyan')
+                lineCt += 1
+                for i in range(len(example)):
+                    utils.puts(str(i + 1) + '. ' + example[i])
+                    lineCt += 1
+        return r, lineCt
     
     def soupify(self, url):
         r = self.sess.get(url)
@@ -104,19 +131,19 @@ class App:
             elif s == 'n' and page + 1 <= maxPage:
                 page += 1
             elif s in words[20 * (page - 1) : 20 * page]:
-                cli.clearConsole(lineCt + 2)
+                utils.clearConsole(lineCt + 2)
                 if not self.myDict[s]["def"]:
                     query = self.query_url.format(s)
-                    r =  utils.parseQuery(self.sess.get(query).text)
+                    r =  self.parseQuery(self.sess.get(query).text)
                     self.myDict[s]["def"] = r
                     self.saveDict()
-                utils.showQuery(self.myDict[s]["def"])
+                self.showQuery(self.myDict[s]["def"])
                 print('\n', end = '')
                 break
             elif s == 'q':
                 break
-            cli.clearConsole(lineCt + 2)
-            cli.clearLine()
+            utils.clearConsole(lineCt + 2)
+            utils.clearLine()
 
     def runInteractiveMode(self):
         self.printSummary()
@@ -135,8 +162,8 @@ class App:
             self.myDict[wordList[idx]]["know"] = True if know == 'y' else False
             _, lineCt = self.query(wordList[idx])
             print("Enter anything to continue...")
-            c = cli.getch()
-            cli.clearConsole(6 + lineCt)
+            c = utils.mygetc()
+            utils.clearConsole(6 + lineCt)
             self.printCount()
 
     def runEditMode(self):
@@ -150,7 +177,7 @@ class App:
             save = input("Add word to dictionary? ['y']: ")
             if save.lower() == 'y':
                 query = self.query_url.format(word)
-                r =  utils.parseQuery(self.sess.get(query).text)
+                r =  self.parseQuery(self.sess.get(query).text)
                 self.myDict[word] = {"def" : r, "notes" : [], "know" : False}
                 self.saveDict()
             else:
@@ -158,12 +185,12 @@ class App:
         else:
             if not self.myDict[word]["def"]:
                 query = self.query_url.format(word)
-                r =  utils.parseQuery(self.sess.get(query).text)
+                r =  self.parseQuery(self.sess.get(query).text)
                 self.myDict[word]["def"] = r
                 self.saveDict()
         
         print("\n", end = '')
-        utils.showQuery(self.myDict[word]["def"])
+        self.showQuery(self.myDict[word]["def"])
         print("\n", end = '')
         self.printNotes(self.myDict[word]["notes"])
         print("\n", end = '')
@@ -173,7 +200,7 @@ class App:
         ''' Query mode of app. '''
         print('\n', end = '')
         while True:
-            cli.clearLine()
+            utils.clearLine()
             word = input("Enter Word to Query ['q' to quit]: ")
             word = word.lower()
             if word == 'q':
@@ -181,9 +208,9 @@ class App:
             result, lineCnt = self.query(word)
             self.saveWord(word, result)
             if not result:
-                cli.clearConsole(lineCnt + 1)
+                utils.clearConsole(lineCnt + 1)
             else:
-                cli.clearConsole(lineCnt + 2)
+                utils.clearConsole(lineCnt + 2)
 
     def getWordOfTheDay(self):
         self.printIntro()
@@ -209,8 +236,8 @@ class App:
         else:
             # New query
             query = self.query_url.format(word)
-            r =  utils.parseQuery(self.sess.get(query).text)
-        return utils.showQuery(r)
+            r =  self.parseQuery(self.sess.get(query).text)
+        return self.showQuery(r)
 
     def saveDict(self):
         with open(config.DICT_PATH, "wb") as file:
@@ -223,19 +250,19 @@ class App:
     def addNotes(self, word):
         while True:
             s = input("Enter notes (or enter index to delete) ['q' to quit]: ")
-            cli.moveCursorUp(1)
-            cli.clearLine()
+            utils.moveCursorUp(1)
+            utils.clearLine()
             if s.lower() == 'q':
                 return
             if s.isdigit():
                 if int(s) > 0 and int(s) <= len(self.myDict[word]["notes"]):
-                    cli.clearConsole(2 + len(self.myDict[word]["notes"]))
+                    utils.clearConsole(2 + len(self.myDict[word]["notes"]))
                     self.myDict[word]["notes"].pop(int(s) - 1)
                     self.printNotes(self.myDict[word]["notes"])
                     print("\n", end = '')
             else:
                 self.myDict[word]["notes"].append(s)
-                cli.clearConsole(1 + len(self.myDict[word]["notes"]))
+                utils.clearConsole(1 + len(self.myDict[word]["notes"]))
                 self.printNotes(self.myDict[word]["notes"])
                 print("\n", end = '')
             self.saveDict()

@@ -2,6 +2,7 @@ import os
 import sys
 import tty, termios
 import string
+from pyfiglet import Figlet
 from .charDef import *
 
 _, n = os.popen('stty size', 'r').read().split()
@@ -102,3 +103,7 @@ def clearConsole(n):
 def forceWrite(s):
     sys.stdout.write(s)
     sys.stdout.flush()
+
+def renderText(s):
+    f = Figlet(font = 'slant')
+    print(f.renderText(s), end = '')
