@@ -13,11 +13,12 @@
 > 📚 A lightweight online dictionary integration to the command line. No browsers. No paperbacks.
 ***
 
+<p align=center><img src="./asset/gifs/demo.gif" width="1000"/></p>
+
+## Setting Up
 ```shell
 $ pip install vocabs
 ```
-
-<p align=center><img src="./asset/gifs/demo.gif" width="800"/></p>
 
 ## Features
 > 📆 Word of the Day!
