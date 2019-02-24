@@ -1,4 +1,4 @@
-# 📚 Vocab
+# 📚 vocabs
 <p align=center>
 <img src="./asset/dict.jpg" width="400"/>
 <br>
@@ -12,6 +12,10 @@
 ***
 > 📚 A lightweight online dictionary integration to the command line. No browsers. No paperbacks.
 ***
+
+```shell
+$ pip install vocabs
+```
 
 <p align=center><img src="./asset/gifs/demo.gif" width="800"/></p>
 
@@ -54,14 +58,11 @@ All in all, `Vocab` is a great tool for fast word queries with easy-to-read defi
 
 > <a target="_blank"><img src="https://img.shields.io/badge/platform-linux-lightgrey.svg"></a> <a target="_blank"><img src="https://img.shields.io/badge/python-tty%20%7C%20termios-blue.svg"></a>
 
-## Setting up
-- Clone the git repository `Vocab`.
-- In `/Vocab/lib/config.py`, modify `DICT_PATH`, `DICT_DIR` to the ABSOLUTE PATH of the local dictionary file on your computer.
-- In root, type `vi ~/.bashrc`. Append the following at the end of the bashrc file : `export PATH=$PATH/<ABSOLUTE PATH to git repo>`
-
 ## Running
 🔥 Launch `vocab` anywhere on your terminal.
-> After launching `Vocab` for the first time, a directory `./local` will be created inside the git repo, and an empty pickle file `dict` will be stored in `./local`. This path can be modified in `./lib/config.py`.
+```shell
+$ vocab
+```
 
 
 ## Usage

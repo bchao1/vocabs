@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from lib.app import App
+from vocab.lib.app import App
 from argparse import ArgumentParser
 
 def main():
